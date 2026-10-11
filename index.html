@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Mis Cuentas</title>
+  <meta name="description" content="Libro de cuentas personal en pesos colombianos. Gratis, privado y sin registro: tus datos se quedan en tu dispositivo.">
+  <meta name="theme-color" content="#1f5a43" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111814" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="label">Libro personal · COP</div>
+      <h1>Mis Cuentas</h1>
+    </div>
+    <div class="month">
+      <button class="icon-btn" id="prev" aria-label="Mes anterior">‹</button>
+      <span id="monthLabel">—</span>
+      <button class="icon-btn" id="next" aria-label="Mes siguiente">›</button>
+    </div>
+  </header>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <section class="summary" aria-label="Resumen del mes">
+    <div class="bal"><span class="label">Balance del mes</span><span class="v num" id="sBal">$ 0</span><span class="sub" id="sAcum">Acumulado total: $ 0</span></div>
+    <div><span class="label">Ingresos</span><span class="v num pos" id="sIn">$ 0</span></div>
+    <div><span class="label">Gastos</span><span class="v num neg" id="sOut">$ 0</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>Registrar movimiento</h2>
+    <form id="form" novalidate>
+      <div class="seg" role="group" aria-label="Tipo de movimiento">
+        <button type="button" class="g" id="tGasto" aria-pressed="true">Gasto</button>
+        <button type="button" class="i" id="tIngreso" aria-pressed="false">Ingreso</button>
+      </div>
+      <div class="field full">
+        <label class="label" for="monto">Monto (pesos)</label>
+        <input class="big" id="monto" inputmode="numeric" autocomplete="off" placeholder="0">
+      </div>
+      <div class="field">
+        <label class="label" for="categoria">Categoría</label>
+        <select id="categoria"></select>
+      </div>
+      <div class="field">
+        <label class="label" for="cuenta">Medio</label>
+        <select id="cuenta"></select>
+      </div>
+      <div class="field">
+        <label class="label" for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+      </div>
+      <div class="field">
+        <label class="label" for="nota">Detalle</label>
+        <input id="nota" maxlength="80" placeholder="Almuerzo, pasaje…">
+      </div>
+      <button class="primary" id="save" type="submit">Guardar gasto</button>
+      <p class="msg" id="msg" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Gastos por categoría</h2>
+    <div class="cats" id="cats"><div class="sub">Sin gastos este mes.</div></div>
+  </section>
+
+  <section class="panel">
+    <h2>Movimientos</h2>
+    <div class="ledger" id="ledger"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Medios de pago</h2>
+    <div class="box">
+      <ul class="medios" id="medios"></ul>
+      <form id="medioForm" class="inline" novalidate>
+        <label class="sr" for="nuevoMedio">Nuevo medio de pago</label>
+        <input id="nuevoMedio" maxlength="30" placeholder="Agregar medio (ej. Nu, tarjeta…)">
+        <button type="submit" class="ghost">Agregar</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Respaldo</h2>
+    <div class="box">
+      <p class="sub">Tus datos se guardan solo en este navegador. Si lo borras o cambias de dispositivo, se pierden: descarga un respaldo de vez en cuando e impórtalo donde lo necesites.</p>
+      <div class="actions">
+        <button class="ghost" id="expJson">Exportar JSON</button>
+        <button class="ghost" id="expCsv">Exportar CSV</button>
+        <button class="ghost" id="impBtn">Importar JSON</button>
+        <input type="file" id="impFile" accept="application/json,.json" hidden>
+      </div>
+      <p class="msg" id="bkMsg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer class="sub">Privado: nada sale de tu dispositivo. <a href="https://github.com/tamalete/mis-cuentas" id="repoLink">Código abierto</a>.</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
